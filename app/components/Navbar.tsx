@@ -88,17 +88,17 @@ export default function Navbar() {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       // Trouver l'entrée avec le plus grand ratio d'intersection
       let maxRatio = 0;
-      let activeEntry: IntersectionObserverEntry | null = null;
+      let bestEntry: IntersectionObserverEntry | undefined;
 
-      entries.forEach((entry) => {
+      for (const entry of entries) {
         if (entry.intersectionRatio > maxRatio) {
           maxRatio = entry.intersectionRatio;
-          activeEntry = entry;
+          bestEntry = entry;
         }
-      });
+      }
 
-      if (activeEntry && activeEntry.isIntersecting && maxRatio > 0.5) {
-        setActiveSection(activeEntry.target.id);
+      if (bestEntry && bestEntry.isIntersecting && maxRatio > 0.5) {
+        setActiveSection(bestEntry.target.id);
       }
     };
 
