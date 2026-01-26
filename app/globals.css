@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-noto-sans);
+  --font-special-gothic: var(--font-special-gothic-expanded-one);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +19,94 @@
   }
 }
 
+* {
+  cursor: none !important; /* Cache le curseur système partout */
+}
+
+/* Cache le curseur sur tous les éléments interactifs, même au survol */
+a,
+button,
+input,
+textarea,
+select,
+[role="button"],
+[role="link"],
+[onclick],
+[tabindex] {
+  cursor: none !important;
+}
+
+a:hover,
+button:hover,
+input:hover,
+textarea:hover,
+select:hover,
+[role="button"]:hover,
+[role="link"]:hover {
+  cursor: none !important;
+}
+
+/* Réaffiche le curseur natif au survol de l'alerte du navigateur - doit être après les autres règles */
+/* Utilisation d'une spécificité très élevée pour surcharger cursor: none */
+.browser-alert,
+.browser-alert *,
+.browser-alert *::before,
+.browser-alert *::after,
+.browser-alert button,
+.browser-alert button:hover,
+.browser-alert a,
+.browser-alert a:hover {
+  cursor: auto !important;
+  cursor: default !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Optimisations de performance GPU */
+.motion-element,
+[data-motion] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Scroll snap amélioré */
+.snap-y {
+  scroll-snap-type: y mandatory;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+.snap-always {
+  scroll-snap-stop: always;
+}
+
+/* Désactive les animations pour les utilisateurs qui préfèrent réduire les animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Désactive les animations Motion.js */
+  [data-motion] {
+    animation: none !important;
+    transition: none !important;
+  }
 }
