@@ -1,58 +1,51 @@
 "use client";
 
-import { motion } from "motion/react";
-import { useState } from "react";
+import { motion, useMotionValue, useSpring } from "motion/react";
+import { useEffect } from "react";
 import Link from "next/link";
 
 export default function NotFound() {
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
-  const [clicked, setClicked] = useState(false);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  // Animation légèrement plus douce pour le cercle - similaire au CustomCursor
+  const circleSpringConfig = { damping: 25, stiffness: 500, mass: 0.5 };
+  const springX = useSpring(mouseX, circleSpringConfig);
+  const springY = useSpring(mouseY, circleSpringConfig);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
 
-  const handleMouseLeave = () => {
-    setMousePosition(null);
-  };
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-  const handleClick = () => {
-    setClicked(true);
-    setTimeout(() => setClicked(false), 300);
-  };
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [mouseX, mouseY]);
 
   const numbers = ["4", "0", "4"];
   const letters = "Page not found".split("");
 
   return (
-    <div
-      className="min-h-screen bg-gradient-to-br from-black via-zinc-900 to-black flex items-center justify-center relative overflow-hidden"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className="min-h-screen bg-gradient-to-br from-black via-zinc-900 to-black flex items-center justify-center relative overflow-hidden">
       {/* Effet de lumière suivant la souris */}
-      {mousePosition && (
-        <motion.div
-          className="absolute pointer-events-none z-0"
-          style={{
-            left: mousePosition.x,
-            top: mousePosition.y,
-            transform: "translate(-50%, -50%)",
-            width: "400px",
-            height: "400px",
-            background: "radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)",
-            willChange: "transform",
-          }}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0 }}
-          transition={{ duration: 0.3 }}
-        />
-      )}
+      <motion.div
+        className="fixed top-0 left-0 pointer-events-none z-0"
+        style={{
+          x: springX,
+          y: springY,
+          translateX: "-50%",
+          translateY: "-50%",
+          width: "400px",
+          height: "400px",
+          background: "radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)",
+          willChange: "transform",
+          transform: "translateZ(0)",
+        }}
+      />
 
       {/* Grille animée en arrière-plan */}
       <motion.div
@@ -118,12 +111,6 @@ export default function NotFound() {
                 delay: index * 0.2,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              whileHover={{
-                scale: 1.2,
-                y: -10,
-                rotateZ: clicked ? 360 : 0,
-              }}
-              onMouseDown={handleClick}
               style={{
                 fontFamily: 'var(--font-special-gothic-expanded-one)',
                 transform: "translateZ(0)",
@@ -132,13 +119,6 @@ export default function NotFound() {
               <span className="text-8xl md:text-[12rem] lg:text-[16rem] text-white leading-none select-none">
                 {number}
               </span>
-              {/* Effet de brillance au survol */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: "100%" }}
-                transition={{ duration: 0.6 }}
-              />
             </motion.div>
           ))}
         </div>
@@ -220,35 +200,6 @@ export default function NotFound() {
               />
             </motion.button>
           </Link>
-        </motion.div>
-
-        {/* Icônes décoratives interactives */}
-        <motion.div
-          className="flex justify-center gap-8 mt-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 2 }}
-        >
-          {[0, 1, 2].map((index) => (
-            <motion.div
-              key={index}
-              className="w-2 h-2 bg-white rounded-full"
-              animate={{
-                y: [0, -10, 0],
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                delay: index * 0.2,
-                ease: "easeInOut",
-              }}
-              whileHover={{
-                scale: 2,
-                backgroundColor: "#ffffff",
-              }}
-            />
-          ))}
         </motion.div>
       </div>
     </div>
