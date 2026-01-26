@@ -6,6 +6,7 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringAlert, setIsHoveringAlert] = useState(false);
+  const [isHoveringWhiteButton, setIsHoveringWhiteButton] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   const circleX = useMotionValue(-100);
@@ -46,10 +47,11 @@ export default function CustomCursor() {
 
         // Détecte si on survole un élément cliquable (throttlé)
         const target = e.target as HTMLElement;
+        const isInput = target.tagName === "INPUT" && target instanceof HTMLInputElement;
         const isClickable =
           target.tagName === "A" ||
           target.tagName === "BUTTON" ||
-          (target.tagName === "INPUT" && target.type !== "text" && target.type !== "textarea") ||
+          (isInput && target.type !== "text" && target.type !== "textarea") ||
           target.getAttribute("role") === "button" ||
           target.getAttribute("role") === "link" ||
           target.closest("a, button, [role='button'], [role='link']") !== null;
@@ -58,8 +60,32 @@ export default function CustomCursor() {
         const browserAlertElement = target.closest(".browser-alert");
         const isHoveringBrowserAlert = browserAlertElement !== null;
 
+        // Détecte si on survole un bouton blanc
+        const buttonElement = target.closest("button, a, [role='button']");
+        let isWhiteButton = false;
+        if (buttonElement) {
+          const element = buttonElement as HTMLElement;
+          const classes = element.className || "";
+          const computedStyle = window.getComputedStyle(element);
+          const bgColor = computedStyle.backgroundColor;
+          
+          // Vérifie si le bouton a bg-white dans ses classes
+          // ou si le background calculé est blanc
+          const isWhiteInClasses = 
+            classes.includes("bg-white");
+          
+          // Vérifie si le background calculé est blanc (rgb(255, 255, 255) ou proche)
+          const isWhiteInStyle = 
+            bgColor === "rgb(255, 255, 255)" ||
+            bgColor === "#ffffff" ||
+            bgColor.startsWith("rgb(255, 255, 255)");
+          
+          isWhiteButton = isWhiteInClasses || isWhiteInStyle;
+        }
+
         setIsHovering(isClickable);
         setIsHoveringAlert(isHoveringBrowserAlert);
+        setIsHoveringWhiteButton(isWhiteButton);
       });
     };
 
@@ -94,13 +120,17 @@ export default function CustomCursor() {
         }}
       >
         <motion.div
-          className="bg-white rounded-full"
+          className="rounded-full"
           animate={{
             width: isHovering ? 8 : 6,
             height: isHovering ? 8 : 6,
             borderWidth: isHovering ? 1 : 0,
-            borderColor: isHovering ? "white" : "transparent",
-            backgroundColor: isHovering ? "transparent" : "white",
+            borderColor: isHoveringWhiteButton 
+              ? (isHovering ? "#1f2937" : "#374151") 
+              : (isHovering ? "white" : "transparent"),
+            backgroundColor: isHoveringWhiteButton
+              ? (isHovering ? "transparent" : "#1f2937")
+              : (isHovering ? "transparent" : "white"),
           }}
           transition={{
             duration: 0.2,
@@ -121,7 +151,16 @@ export default function CustomCursor() {
           transform: "translateZ(0)", // Force l'accélération GPU
         }}
       >
-        <div className="w-8 h-8 border border-white rounded-full" />
+        <motion.div
+          className="w-8 h-8 border rounded-full"
+          animate={{
+            borderColor: isHoveringWhiteButton ? "#1f2937" : "white",
+          }}
+          transition={{
+            duration: 0.2,
+            ease: "easeOut",
+          }}
+        />
       </motion.div>
     </>
   );

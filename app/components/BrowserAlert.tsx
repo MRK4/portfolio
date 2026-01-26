@@ -53,20 +53,20 @@ export default function BrowserAlert() {
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <div 
-            className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-zinc-200 dark:border-zinc-700 rounded-lg px-4 py-3 shadow-lg flex items-center gap-3 max-w-md"
+            className="bg-zinc-900/90 backdrop-blur-sm border border-zinc-700 rounded-lg px-4 py-3 shadow-lg flex items-center gap-3 max-w-md"
             style={{ cursor: "auto" }}
           >
             <div className="flex-1">
-              <p className="text-xs text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-400">
                 Pour une meilleure expérience, utilisez un navigateur{" "}
-                <span className="font-medium text-zinc-900 dark:text-zinc-100">
+                <span className="font-medium text-zinc-100">
                   Chromium
                 </span>
               </p>
             </div>
             <button
               onClick={handleDismiss}
-              className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors text-lg leading-none"
+              className="text-zinc-400 hover:text-zinc-300 transition-colors text-lg leading-none"
               style={{ cursor: "pointer" }}
               aria-label="Fermer"
             >

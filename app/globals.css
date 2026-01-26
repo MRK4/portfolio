@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -10,13 +10,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-noto-sans);
   --font-special-gothic: var(--font-special-gothic-expanded-one);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 * {
@@ -91,6 +84,16 @@ body {
 
 .snap-always {
   scroll-snap-stop: always;
+}
+
+/* Cache la barre de scroll tout en gardant la fonctionnalité de scroll */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE et Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari et Opera */
 }
 
 /* Désactive les animations pour les utilisateurs qui préfèrent réduire les animations */
