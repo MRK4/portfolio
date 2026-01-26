@@ -12,7 +12,7 @@ interface ContactSectionProps {
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
 
-const WEB3FORMS_ACCESS_KEY = "a2a22454-4562-4e75-a468-134804a16e97";
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "";
 const HCAPTCHA_SITEKEY = "50b2fe65-b00b-4b9e-ad62-3ba471098be2";
 
 export default function ContactSection({ scrollProgress }: ContactSectionProps) {
