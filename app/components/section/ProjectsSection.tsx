@@ -24,9 +24,10 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
       title: "GuruPress",
       description: "A complete monitoring dashboard for multiple WordPress websites, made with Next.js and Prisma. I wish I had time to put it in production...",
       image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
-      technologies: ["Next.js", "Typescript", "Node.js", "Prisma", "Tailwind CSS"],
+      technologies: ["Next.js", "Typescript", "Node.js", "Prisma", "PHP"],
       category: "Side Project",
-      year: "2026"
+      year: "2026",
+      link: "https://gurupress.vercel.app/"
     },
     {
       id: 2,
