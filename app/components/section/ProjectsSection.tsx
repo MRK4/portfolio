@@ -20,6 +20,16 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
   // Mock project data
   const projects = [
     {
+      id: 0,
+      title: "Lerni",
+      description: "Lerni is a modern learning platform that enables creators to build and publish structured online courses combining video and rich written content. Designed as a realistic SaaS product, it focuses on engagement, clarity, and a motivating learning experience rather than a corporate, monochrome interface.",
+      image: "/projects/lerni.png",
+      technologies: ["Next.js", "Typescript", "Node.js", "Prisma"],
+      category: "Side Project",
+      year: "2026",
+      link: "https://lerni-sand.vercel.app/"
+    },
+    {
       id: 1,
       title: "GuruPress",
       description: "A complete monitoring dashboard for multiple WordPress websites, made with Next.js and Prisma. I wish I had time to put it in production...",
@@ -104,7 +114,7 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
             return (
               <motion.div
                 key={project.id}
-                className="group relative bg-white/15 backdrop-blur-sm border border-white/30 rounded-xl overflow-hidden hover:bg-white/20 transition-all duration-150 cursor-pointer shadow-lg"
+                className="group relative flex flex-col bg-white/15 backdrop-blur-sm border border-white/30 rounded-xl overflow-hidden hover:bg-white/20 transition-all duration-150 cursor-pointer shadow-lg"
                 style={{
                   willChange: "transform",
                   transform: "translateZ(0)",
@@ -169,75 +179,76 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
                 </div>
 
                 {/* Card content */}
-                <div className="p-6 md:p-8 relative z-10">
-                  <motion.h3
-                    className="text-2xl md:text-3xl font-bold text-white mb-3"
-                    style={{ transform: "translateZ(0)" }}
-                  >
-                    {project.title}
-                  </motion.h3>
+                <div className="flex flex-col flex-1 min-h-0 p-6 md:p-8 relative z-10">
+                  <div className="flex-1 min-h-0">
+                    <motion.h3
+                      className="text-2xl md:text-3xl font-bold text-white mb-3"
+                      style={{ transform: "translateZ(0)" }}
+                    >
+                      {project.title}
+                    </motion.h3>
 
-                  <motion.p
-                    className="text-zinc-200 text-sm md:text-base leading-relaxed mb-6"
-                    style={{ transform: "translateZ(0)" }}
-                  >
-                    {project.description}
-                  </motion.p>
+                    <motion.p
+                      className="text-zinc-200 text-sm md:text-base leading-relaxed mb-6"
+                      style={{ transform: "translateZ(0)" }}
+                    >
+                      {project.description}
+                    </motion.p>
 
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.technologies.map((tech, techIndex) => (
-                      <motion.span
-                        key={techIndex}
-                        className="px-3 py-1 text-xs md:text-sm bg-white/15 text-white rounded-full border border-white/30"
-                        style={{ transform: "translateZ(0)" }}
-                        whileHover={{
-                          scale: 1.1,
-                          backgroundColor: "rgba(255, 255, 255, 0.25)",
-                        }}
-                        transition={{ duration: 0.15, ease: "easeOut" }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, techIndex) => (
+                        <motion.span
+                          key={techIndex}
+                          className="px-3 py-1 text-xs md:text-sm bg-white/15 text-white rounded-full border border-white/30"
+                          style={{ transform: "translateZ(0)" }}
+                          whileHover={{
+                            scale: 1.1,
+                            backgroundColor: "rgba(255, 255, 255, 0.25)",
+                          }}
+                          transition={{ duration: 0.15, ease: "easeOut" }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Project link and GitHub icon */}
-                  <div className="flex items-center justify-between">
+                  {/* Card footer - toujours en bas */}
+                  <div className="flex items-center justify-between mt-6 pt-6 border-t border-white/10">
                     {project.link ? (
                       <motion.a
-                      href={project.link}
-                      className="inline-flex items-center gap-2 text-white text-sm font-semibold hover:text-zinc-300 transition-colors duration-150"
-                      style={{ transform: "translateZ(0)" }}
-                      whileHover={{ x: 5 }}
-                      transition={{ duration: 0.15, ease: "easeOut" }}
-                      target="_blank"
-                    >
-                      View Project
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                        href={project.link}
+                        className="inline-flex items-center gap-2 text-white text-sm font-semibold hover:text-zinc-300 transition-colors duration-150"
+                        style={{ transform: "translateZ(0)" }}
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.15, ease: "easeOut" }}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </motion.a>
+                        View Project
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
+                        </svg>
+                      </motion.a>
                     ) : (
-                      <motion.span
-                      className="inline-flex items-center gap-2 text-white text-sm font-semibold"
-                    >
-                      Still in development...
-                    </motion.span >
+                      <motion.span className="inline-flex items-center gap-2 text-white text-sm font-semibold">
+                        Still in development...
+                      </motion.span>
                     )}
                     {project.github && (
                       <motion.a
-                        href={project.github || "#"}
+                        href={project.github}
                         className="inline-flex items-center text-white hover:text-zinc-300 transition-colors duration-150"
                         style={{ transform: "translateZ(0)" }}
                         whileHover={{ scale: 1.1 }}
