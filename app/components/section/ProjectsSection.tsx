@@ -27,6 +27,7 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
       category: "Side Project",
       year: "2026",
       link: "https://todogether.vercel.app/",
+      github: "https://github.com/MRK4/todogether",
     },
     {
       title: "Lerni",
