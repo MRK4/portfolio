@@ -11,54 +11,51 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  scrollContainerRef?: React.RefObject<HTMLDivElement | null>;
+}
 
+export default function Navbar({ scrollContainerRef }: NavbarProps) {
   const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
     const updateActiveSection = () => {
       const viewportHeight = window.innerHeight;
-      const viewportCenter = viewportHeight / 2;
+      const viewportCenterY = viewportHeight / 2;
 
-      // Trouver la section la plus proche du centre de la fenêtre
+      // La section active est celle qui contient le centre de la fenêtre
+      // (plus stable avec le scroll snap : on ne change qu'une fois le centre passé)
       let activeId = "";
-      let minDistance = Infinity;
 
-      navItems.forEach((item) => {
+      for (const item of navItems) {
         const sectionId = item.href.substring(1);
         const element = document.getElementById(sectionId);
         if (element) {
           const rect = element.getBoundingClientRect();
-          const sectionCenter = rect.top + rect.height / 2;
-          const distance = Math.abs(sectionCenter - viewportCenter);
-
-          // Si la section occupe plus de 50% de la fenêtre visible, elle est active
-          const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-          const visibilityRatio = visibleHeight / viewportHeight;
-
-          if (visibilityRatio > 0.5 && distance < minDistance) {
-            minDistance = distance;
+          const centerInView = rect.top <= viewportCenterY && rect.bottom >= viewportCenterY;
+          if (centerInView) {
             activeId = sectionId;
+            break;
           }
         }
-      });
+      }
 
-      // Si aucune section n'occupe plus de 50%, prendre la plus proche du centre
+      // Si le centre n'est dans aucune section (transition), prendre la plus proche du centre
       if (!activeId) {
-        navItems.forEach((item) => {
+        let minDistance = Infinity;
+        for (const item of navItems) {
           const sectionId = item.href.substring(1);
           const element = document.getElementById(sectionId);
           if (element) {
             const rect = element.getBoundingClientRect();
-            const sectionCenter = rect.top + rect.height / 2;
-            const distance = Math.abs(sectionCenter - viewportCenter);
-
+            const sectionCenterY = rect.top + rect.height / 2;
+            const distance = Math.abs(sectionCenterY - viewportCenterY);
             if (distance < minDistance) {
               minDistance = distance;
               activeId = sectionId;
             }
           }
-        });
+        }
       }
 
       if (activeId) {
@@ -71,22 +68,27 @@ export default function Navbar() {
       updateActiveSection();
     };
 
-    // Vérifier la section initiale
-    updateActiveSection();
+    // Vérifier la section initiale après que le DOM soit prêt
+    const rafId = requestAnimationFrame(() => {
+      updateActiveSection();
+    });
 
-    // Écouter les événements de scroll
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Écouter les événements de scroll sur le bon élément
+    if (scrollContainerRef?.current) {
+      scrollContainerRef.current.addEventListener("scroll", handleScroll, { passive: true });
+    } else {
+      window.addEventListener("scroll", handleScroll, { passive: true });
+    }
     window.addEventListener("resize", updateActiveSection, { passive: true });
 
-    // Utiliser aussi Intersection Observer comme backup
+    // Intersection Observer en backup : ne change que si une section a >70% de visibilité
     const observerOptions = {
-      root: null,
-      rootMargin: "-40% 0px -40% 0px", // Section active quand elle occupe au moins 60% de la fenêtre
-      threshold: [0, 0.5, 1],
+      root: scrollContainerRef?.current ?? null,
+      rootMargin: "-15% 0px -15% 0px",
+      threshold: [0, 0.5, 0.7, 1],
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      // Trouver l'entrée avec le plus grand ratio d'intersection
       let maxRatio = 0;
       let bestEntry: IntersectionObserverEntry | undefined;
 
@@ -97,28 +99,37 @@ export default function Navbar() {
         }
       }
 
-      if (bestEntry && bestEntry.isIntersecting && maxRatio > 0.5) {
+      if (bestEntry && bestEntry.isIntersecting && maxRatio > 0.7) {
         setActiveSection(bestEntry.target.id);
       }
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // Observer toutes les sections
-    navItems.forEach((item) => {
-      const sectionId = item.href.substring(1);
-      const element = document.getElementById(sectionId);
-      if (element) {
-        observer.observe(element);
-      }
-    });
+    // Observer les sections (avec un léger délai pour que le ref soit attaché)
+    const observeSections = () => {
+      navItems.forEach((item) => {
+        const sectionId = item.href.substring(1);
+        const element = document.getElementById(sectionId);
+        if (element) {
+          observer.observe(element);
+        }
+      });
+    };
+
+    observeSections();
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafId);
+      if (scrollContainerRef?.current) {
+        scrollContainerRef.current.removeEventListener("scroll", handleScroll);
+      } else {
+        window.removeEventListener("scroll", handleScroll);
+      }
       window.removeEventListener("resize", updateActiveSection);
       observer.disconnect();
     };
-  }, []);
+  }, [scrollContainerRef]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();

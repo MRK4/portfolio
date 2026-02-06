@@ -29,7 +29,7 @@ export default function Home() {
       className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth"
     >
       {/* Navbar */}
-      <Navbar />
+      <Navbar scrollContainerRef={containerRef} />
       
       {/* Section Hero */}
       <HeroSection scrollProgress={smoothProgress} />

@@ -20,7 +20,15 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
   // Mock project data
   const projects = [
     {
-      id: 0,
+      title: "ToDoGether",
+      description: "Simple and easy to use todo list app, made in one day.",
+      image: "/projects/todogether.png",
+      technologies: ["Next.js", "Typescript", "Node.js", "Prisma"],
+      category: "Side Project",
+      year: "2026",
+      link: "https://todogether.vercel.app/",
+    },
+    {
       title: "Lerni",
       description: "Lerni is a modern learning platform that enables creators to build and publish structured online courses combining video and rich written content. Designed as a realistic SaaS product, it focuses on engagement, clarity, and a motivating learning experience rather than a corporate, monochrome interface.",
       image: "/projects/lerni.png",
@@ -30,7 +38,6 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
       link: "https://lerni-sand.vercel.app/"
     },
     {
-      id: 1,
       title: "GuruPress",
       description: "A complete monitoring dashboard for multiple WordPress websites, made with Next.js and Prisma. I wish I had time to put it in production...",
       image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
@@ -40,7 +47,6 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
       link: "https://gurupress.vercel.app/"
     },
     {
-      id: 2,
       title: "Farmanip",
       description: "A strong company in the automotive industry, I built their website from scratch using PHP and ACF Pro.",
       image: "/projects/farmanip.jpg",
@@ -50,7 +56,6 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
       link: "https://farmanip.com/"
     },
     {
-      id: 3,
       title: "Fireservice",
       description: "Complete website for a security company, made with PHP and ACF Pro during my internship.",
       image: "/projects/fireservice.jpg",
@@ -60,7 +65,6 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
       link: "https://www.fireservice.fr/"
     },
     {
-      id: 4,
       title: "Real Estate Website",
       description: "Always nostalgic about my first ever react project, it's kinda cute.",
       image: "/projects/realestate.jpg",
@@ -113,7 +117,7 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
 
             return (
               <motion.div
-                key={project.id}
+                key={project.title}
                 className="group relative flex flex-col bg-white/15 backdrop-blur-sm border border-white/30 rounded-xl overflow-hidden hover:bg-white/20 transition-all duration-150 cursor-pointer shadow-lg"
                 style={{
                   willChange: "transform",
