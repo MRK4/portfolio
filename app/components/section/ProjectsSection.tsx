@@ -20,6 +20,16 @@ export default function ProjectsSection({ scrollProgress }: ProjectsSectionProps
   // Mock project data
   const projects = [
     {
+      title: "RemoteTime",
+      description: "This project is a Proof of Concept web application designed for companies that embrace remote work. Its purpose is to help teams visualize when collaborators are working across time zones in order to better schedule meetings, calls, and collaborative sessions.",
+      image: "/projects/remotetime.png",
+      technologies: ["Next.js", "Typescript", "Node.js", "Shadcn/ui"],
+      category: "Side Project",
+      year: "2026",
+      link: "https://remotetime.vercel.app/",
+      github: "https://github.com/MRK4/remotetime",
+    },
+    {
       title: "ToDoGether",
       description: "Simple and easy to use todo list app, made in one day.",
       image: "/projects/todogether.png",
