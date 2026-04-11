@@ -1,115 +1,155 @@
 @import "tailwindcss";
 
+/* ── Design System Tokens ──────────────────────────────────────────────────── */
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  /* Surfaces */
+  --surface:            #111316;
+  --surface-low:        #1a1c1f;
+  --surface-high:       #282a2d;
+  --surface-highest:    #333538;
+
+  /* Primary (violet — monitor glow) */
+  --primary:            #c5c0ff;
+  --primary-container:  #6c66c4;
+  --on-primary:         #faf6ff;
+
+  /* Tertiary (amber — desk lamp) */
+  --tertiary:           #ffb95a;
+  --tertiary-container: #8c5c00;
+
+  /* Text */
+  --on-surface:         #e4e0f0;
+  --on-surface-variant: #c8c4d7;
+  --on-surface-muted:   #7a7685;
+
+  /* Ghost border fallback */
+  --outline-variant:    rgba(71, 69, 84, 0.15);
+
+  /* Shadows */
+  --shadow-float:       0px 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-noto-sans);
-  --font-special-gothic: var(--font-special-gothic-expanded-one);
+  --color-surface:          var(--surface);
+  --color-surface-low:      var(--surface-low);
+  --color-surface-high:     var(--surface-high);
+  --color-surface-highest:  var(--surface-highest);
+  --color-primary:          var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary:       var(--on-primary);
+  --color-tertiary:         var(--tertiary);
+  --color-on-surface:       var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-on-surface-muted: var(--on-surface-muted);
+  --font-sans:              var(--font-manrope);
+  --font-display:           var(--font-newsreader);
 }
 
 * {
-  cursor: none !important; /* Cache le curseur système partout */
+  box-sizing: border-box;
 }
 
-/* Cache le curseur sur tous les éléments interactifs, même au survol */
-a,
-button,
+/* ── Browser default UI reset ────────────────────────────────────────────────── */
+
+/* Strip platform appearance on all interactive elements */
 input,
 textarea,
-select,
-[role="button"],
-[role="link"],
-[onclick],
-[tabindex] {
-  cursor: none !important;
+button,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
 }
 
-a:hover,
-button:hover,
-input:hover,
-textarea:hover,
-select:hover,
-[role="button"]:hover,
-[role="link"]:hover {
-  cursor: none !important;
+/* Kill the blue/orange focus ring every browser adds */
+input:focus,
+textarea:focus,
+button:focus,
+select:focus {
+  outline: none;
 }
 
-/* Réaffiche le curseur natif au survol de l'alerte du navigateur - doit être après les autres règles */
-/* Utilisation d'une spécificité très élevée pour surcharger cursor: none */
-.browser-alert,
-.browser-alert *,
-.browser-alert *::before,
-.browser-alert *::after,
-.browser-alert button,
-.browser-alert button:hover,
-.browser-alert a,
-.browser-alert a:hover {
-  cursor: auto !important;
-  cursor: default !important;
+/* Firefox — remove the extra inner padding+border on buttons */
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* Chrome / Edge / Safari — autofill injects a yellow or blue bg.
+   Force our own surface color via an inset box-shadow (the only
+   reliable cross-browser override). */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--surface-low) inset !important;
+  -webkit-text-fill-color: var(--on-surface) !important;
+  caret-color: var(--on-surface);
+  /* Delay the background transition so Chrome can't briefly flash its colour */
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Safari — remove the inner shadow it adds on text inputs by default */
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+}
+
+/* Chrome / Safari — hide the resize grip on textareas (we set it per-element) */
+textarea::-webkit-resizer {
+  display: none;
+}
+
+/* Firefox — number inputs keep a spinner unless explicitly removed */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Chrome / Safari — remove the clear (×) button on search inputs */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+/* Edge — remove the password reveal eye icon */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
+  background: var(--surface);
+  color: var(--on-surface-variant);
+  font-family: var(--font-manrope), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Optimisations de performance GPU */
-.motion-element,
-[data-motion] {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  will-change: transform;
+/* Subtle noise texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Scroll snap amélioré */
-.snap-y {
-  scroll-snap-type: y mandatory;
-}
-
-.snap-start {
-  scroll-snap-align: start;
-}
-
-.snap-always {
-  scroll-snap-stop: always;
-}
-
-/* Cache la barre de scroll tout en gardant la fonctionnalité de scroll */
-.hide-scrollbar {
-  -ms-overflow-style: none; /* IE et Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari et Opera */
-}
-
-/* Désactive les animations pour les utilisateurs qui préfèrent réduire les animations */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  
-  /* Désactive les animations Motion.js */
-  [data-motion] {
-    animation: none !important;
-    transition: none !important;
-  }
-}
+body::before { z-index: 0; }

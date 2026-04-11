@@ -1,25 +1,26 @@
 import type { Metadata } from "next";
-import { Special_Gothic_Expanded_One, Noto_Sans } from "next/font/google";
+import { Newsreader } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "./components/CustomCursor";
-import BrowserAlert from "./components/BrowserAlert";
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 export const metadata: Metadata = {
-  title: "Clément Poudrée (best developer ever)",
-  description: "Clément Poudrée, full stack developer based in Rennes.",
+  title: "Clément Poudrée — Fullstack Engineer",
+  description:
+    "A fullstack developer dedicated to the intersection of poetic aesthetics and technical precision. Building resilient systems with a not-human soul.",
 };
-
-const specialGothicExpandedOne = Special_Gothic_Expanded_One({
-  weight: ["400"],
-  subsets: ["latin"],
-  variable: "--font-special-gothic-expanded-one",
-});
-
-const notoSans = Noto_Sans({
-  weight: ["400"],
-  subsets: ["latin"],
-  variable: "--font-noto-sans",
-});
 
 export default function RootLayout({
   children,
@@ -27,14 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${notoSans.className} ${specialGothicExpandedOne.variable} antialiased`}
-      >
-        <CustomCursor />
-        <BrowserAlert />
-        {children}
-      </body>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${newsreader.variable} ${manrope.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
