@@ -24,7 +24,7 @@ export default function CTASection() {
           }}
         >
           Ready to start a{" "}
-          <span style={{ fontStyle: "italic", color: "var(--primary)" }}>new chapter?</span>
+          <span className="font-medium" style={{ fontStyle: "italic", color: "var(--primary)" }}>new chapter?</span>
         </h2>
         <p
           className="text-sm mb-10"
