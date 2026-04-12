@@ -4,21 +4,21 @@ import ProjectCard, { ProjectCardProps } from "../ProjectCard";
 
 const projects: ProjectCardProps[] = [
   {
-    title: "Aura Analytics",
+    title: "Lerni",
     description:
-      "A real-time analytics dashboard for creative studios. Aggregating performance data across channels with a cognitive interface.",
-    image: "https://placehold.co/800x450/1a1c1f/c5c0ff?text=Aura+Analytics",
-    tags: ["Next.js", "D3.js", "Prisma"],
-    href: "#",
+      "Modern learning platform enabling creators to build and publish structured courses combining video content and rich written material.",
+    image: "/projects/lerni.webp",
+    tags: ["Next.js", "TypeScript", "Prisma"],
+    href: "/gallery/lerni",
     featured: true,
   },
   {
-    title: "Ethos Protocol",
+    title: "Farmanip",
     description:
-      "Identity framework exploring journeys through canvases. Built with Figma for maximum velocity and dispatch-based architecture.",
-    image: "https://placehold.co/800x450/1a1c1f/ffb95a?text=Ethos+Protocol",
-    tags: ["React", "TypeScript"],
-    href: "#",
+      "Full website design and development for an automotive company — custom WordPress theme from Figma mockups.",
+    image: "/projects/farmanip.webp",
+    tags: ["WordPress", "PHP", "ACF Pro", "Figma"],
+    href: "/gallery/farmanip",
     featured: true,
   },
 ];
@@ -28,7 +28,7 @@ export default function ProjectsSection() {
     <section style={{ background: "var(--surface-low)" }}>
       <div className="max-w-6xl mx-auto px-6 py-24">
         <div className="flex items-end justify-between mb-16">
-          <SectionHeader parts={["Selected ", "Artifacts"]} />
+          <SectionHeader parts={["Selected ", "Projects"]} />
           <Link
             href="/gallery"
             className="hidden sm:flex items-center gap-1.5 text-sm font-medium transition-colors"

@@ -20,9 +20,10 @@ interface FormValues {
 }
 
 const SUBJECTS = [
-  "Project Inquiry",
-  "Open Source Collaboration",
-  "Freelance Mission",
+  "Job opportunity",
+  "Freelance mission",
+  "Dev idea or collaboration",
+  "Open source",
   "Just saying hello",
 ];
 
@@ -112,21 +113,17 @@ export default function ContactPage() {
                   color: "var(--on-surface)",
                 }}
               >
-                Let&apos;s write
-                <br />
-                the next{" "}
-                <span style={{ color: "var(--primary)" }}>chapter</span>
-                <br />
-                together.
+                Let&apos;s{" "}
+                <span style={{ color: "var(--primary)" }}>talk.</span>
               </h1>
 
               <p
                 className="text-base max-w-xs"
                 style={{ color: "var(--on-surface-variant)", lineHeight: 1.65 }}
               >
-                Whether it&apos;s a new project, a collaboration, or simply a
-                conversation — the atelier is open. Fill in the form and I will
-                get back to you.
+                Whether you have a job opportunity, a dev idea, a project to
+                build together, or just want to say hi — feel free to reach out.
+                I read everything.
               </p>
 
               <div

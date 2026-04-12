@@ -81,7 +81,7 @@ export default function CTASection() {
                 }}
               />
             </span>
-            Available for new projects
+            Open to opportunities
           </span>
 
           <h2
@@ -92,18 +92,19 @@ export default function CTASection() {
               letterSpacing: "-0.02em",
             }}
           >
-            Ready to start a{" "}
+            Got a{" "}
             <em style={{ fontStyle: "italic", color: "var(--primary)" }}>
-              new chapter?
-            </em>
+              project or a role
+            </em>{" "}
+            in mind?
           </h2>
 
           <p
             className="text-base mb-10 max-w-md mx-auto"
             style={{ color: "var(--on-surface-variant)", lineHeight: 1.7 }}
           >
-            I&apos;m open to selective collaborations. If you have a project
-            worth crafting, let&apos;s talk.
+            I&apos;m open to full-time roles, freelance missions, and side
+            project collaborations. If something resonates, just say hello.
           </p>
 
           <Link
