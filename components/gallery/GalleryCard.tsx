@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import StatusPill, { Status } from "./StatusPill";
 
 export type Category = "Open Source" | "Client Work" | "Experiments";
@@ -7,6 +8,7 @@ export interface GalleryProject {
   title: string;
   description: string;
   gradient: string;
+  coverImage?: string;
   category: Category;
   year: string;
   status: Status;
@@ -29,6 +31,15 @@ export default function GalleryCard({ project }: { project: GalleryProject }) {
           className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
           style={{ background: project.gradient }}
         />
+        {project.coverImage && (
+          <Image
+            src={project.coverImage}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        )}
         {/* Vignette */}
         <div
           className="absolute inset-0"

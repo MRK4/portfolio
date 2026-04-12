@@ -9,6 +9,7 @@ year: "2025"
 date: "2025-01-01"
 tags: ["WordPress", "PHP", "ACF Pro", "JavaScript", "Figma"]
 coverGradient: "linear-gradient(145deg, #141414 0%, #1c1c1c 60%, #222222 100%)"
+coverImage: "/projects/farmanip.jpg"
 stats:
   - label: "Type"
     value: "Client Work"

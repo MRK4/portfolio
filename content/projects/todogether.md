@@ -9,6 +9,7 @@ year: "2026"
 date: "2026-02-01"
 tags: ["Next.js", "TypeScript", "Prisma", "Node.js"]
 coverGradient: "linear-gradient(145deg, #121a12 0%, #162414 60%, #1a2e1a 100%)"
+coverImage: "/projects/todogether.png"
 stats:
   - label: "Build time"
     value: "1 day"

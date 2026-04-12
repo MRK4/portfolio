@@ -85,6 +85,7 @@ export default function GalleryClient({ projects }: { projects: ProjectMeta[] })
                       title: project.title,
                       description: project.description,
                       gradient: project.coverGradient,
+                      coverImage: project.coverImage,
                       category: project.category,
                       year: project.year,
                       status: project.status,
