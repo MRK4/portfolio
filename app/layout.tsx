@@ -17,9 +17,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Clément Poudrée — Fullstack Engineer",
+  title: "Clément Poudrée — Fullstack Developer",
   description:
-    "A fullstack developer dedicated to the intersection of poetic aesthetics and technical precision. Building resilient systems with a not-human soul.",
+    "Fullstack developer based in Rennes, building modern web applications with React, Next.js and Node.js. Strong focus on design quality and product thinking.",
 };
 
 export default function RootLayout({
