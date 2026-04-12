@@ -1,10 +1,10 @@
 ---
-title: "Aether Protocol"
-subtitle: "Composable liquidity at the speed of intent"
-description: "Decentralized liquidity aggregator built with a focus on low-latency execution and durability. A composable architecture with plug-in resolvers."
-slug: aether-protocol
+title: ""
+subtitle: ""
+description: ""
+slug: template-url
 category: Open Source
-status: Live
+status: Live # Live or WIP
 year: "2024"
 date: "2024-09-15"
 tags: ["Rust", "TypeScript", "WebAssembly", "DeFi"]
@@ -19,7 +19,7 @@ stats:
   - label: "Lines of Rust"
     value: "18 000"
 links:
-  github: "https://github.com/clementpoudree/aether-protocol"
+  github: "https://github.com/clementpoudree/"
 ---
 
 ## The Problem Space
