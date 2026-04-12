@@ -81,7 +81,12 @@ export default function ContactPage() {
           <div className="grid md:grid-cols-2 gap-20 items-start">
 
             {/* Left — editorial text */}
-            <div className="md:sticky md:top-32">
+            <motion.div
+              className="md:sticky md:top-32"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
               <p
                 className="text-xs tracking-widest uppercase mb-5"
                 style={{ color: "var(--tertiary)" }}
@@ -122,10 +127,13 @@ export default function ContactPage() {
                   background: "linear-gradient(to right, var(--tertiary), transparent)",
                 }}
               />
-            </div>
+            </motion.div>
 
             {/* Right — form card */}
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="p-8 md:p-10"
               style={{ background: "var(--surface-high)", borderRadius: "2rem" }}
             >
@@ -331,7 +339,7 @@ export default function ContactPage() {
                   </div>
                 </form>
               )}
-            </div>
+            </motion.div>
           </div>
         </div>
       </main>

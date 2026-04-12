@@ -128,21 +128,30 @@ export default function HeroSection() {
       <div className="max-w-6xl mx-auto px-6 w-full py-24 grid md:grid-cols-2 gap-16 items-center">
 
         {/* Left — text (no parallax, stays anchored) */}
-        <div>
-          <p
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.09 } },
+          }}
+        >
+          <motion.p
             className="text-xs tracking-widest uppercase mb-5"
             style={{ color: "var(--tertiary)" }}
+            variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } } }}
           >
-            Fullstack Developer — React, Next.js, TypeScript
-          </p>
+            Fullstack Developer
+          </motion.p>
 
-          <h1
+          <motion.h1
             className="text-6xl md:text-7xl 2xl:text-8xl font-semibold leading-[1.02] mb-6"
             style={{
               fontFamily: "var(--font-newsreader)",
               color: "var(--on-surface)",
               letterSpacing: "-0.02em",
             }}
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } } }}
           >
             <span className="text-nowrap">Clément Poudrée,</span>
             <br />
@@ -150,29 +159,35 @@ export default function HeroSection() {
             High-Performance
             <br />
             Web Apps.
-          </h1>
+          </motion.h1>
 
-          <p
+          <motion.p
             className="text-base md:text-lg mb-4 max-w-md"
             style={{
               fontFamily: "var(--font-manrope)",
               color: "var(--on-surface-variant)",
               lineHeight: 1.6,
             }}
+            variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } } }}
           >
             Fullstack developer specialized in modern React ecosystems. I design fast,
             scalable, and SEO-driven applications with clean architecture and strong
             type safety.
-          </p>
+          </motion.p>
 
-          <div
+          <motion.div
             className="mb-8 h-px w-24"
             style={{
+              transformOrigin: "left",
               background: "linear-gradient(to right, var(--tertiary), transparent)",
             }}
+            variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } } }}
           />
 
-          <div className="flex items-center gap-3 flex-wrap">
+          <motion.div
+            className="flex items-center gap-3 flex-wrap"
+            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } } }}
+          >
             <Button href="/gallery" variant="primary" size="lg">
               See Projects
             </Button>
@@ -182,11 +197,16 @@ export default function HeroSection() {
                 <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Right — image + decorative frame (layer 3 = fast / close) */}
-        <div className="relative flex justify-center md:justify-end">
+        <motion.div
+          className="relative flex justify-center md:justify-end"
+          initial={{ opacity: 0, scale: 0.96, y: 24 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
 
           {/* Violet glow — moves slightly more than the photo */}
           <motion.div
@@ -260,7 +280,7 @@ export default function HeroSection() {
               y: dotVioletY,
             }}
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

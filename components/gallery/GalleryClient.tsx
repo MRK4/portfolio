@@ -25,7 +25,12 @@ export default function GalleryClient({ projects }: { projects: ProjectMeta[] })
   return (
     <>
       {/* ── Filter bar ── */}
-      <section className="max-w-6xl mx-auto px-6 mb-14">
+      <motion.section
+        className="max-w-6xl mx-auto px-6 mb-14"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
         <div className="flex flex-wrap gap-2">
           {FILTERS.map((f) => {
             const active = f === activeFilter;
@@ -64,7 +69,7 @@ export default function GalleryClient({ projects }: { projects: ProjectMeta[] })
             );
           })}
         </div>
-      </section>
+      </motion.section>
 
       {/* ── Masonry grid ── */}
       <section className="max-w-6xl mx-auto px-6 pb-8">
