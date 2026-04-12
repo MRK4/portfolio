@@ -9,7 +9,7 @@ year: "2019"
 date: "2019-01-01"
 tags: ["React", "Tailwind CSS"]
 coverGradient: "linear-gradient(145deg, #0f1520 0%, #131e30 60%, #162240 100%)"
-coverImage: "/projects/realestate.jpg"
+coverImage: "/projects/realestate.webp"
 stats:
   - label: "Year"
     value: "2019"

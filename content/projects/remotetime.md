@@ -9,6 +9,7 @@ year: "2026"
 date: "2026-01-01"
 tags: ["Next.js", "TypeScript", "Node.js", "Shadcn/ui"]
 coverGradient: "linear-gradient(145deg, #0f1923 0%, #0d2137 60%, #102840 100%)"
+coverImage: "/projects/remotetime.webp"
 stats:
   - label: "Stack"
     value: "Next.js"

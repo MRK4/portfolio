@@ -9,6 +9,7 @@ year: "2026"
 date: "2026-02-15"
 tags: ["Next.js", "TypeScript", "Prisma", "PHP", "Node.js"]
 coverGradient: "linear-gradient(145deg, #10101a 0%, #181428 60%, #1e1630 100%)"
+coverImage: "/projects/gurupress.webp"
 stats:
   - label: "Stack"
     value: "Next.js + PHP"

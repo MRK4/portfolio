@@ -9,7 +9,7 @@ year: "2026"
 date: "2026-03-01"
 tags: ["Next.js", "TypeScript", "Prisma", "Node.js"]
 coverGradient: "linear-gradient(145deg, #1a1410 0%, #2a1f10 60%, #321e08 100%)"
-coverImage: "/projects/lerni.png"
+coverImage: "/projects/lerni.webp"
 stats:
   - label: "Stack"
     value: "Next.js"

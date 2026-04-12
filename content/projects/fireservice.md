@@ -9,7 +9,7 @@ year: "2020"
 date: "2020-06-01"
 tags: ["WordPress", "PHP", "ACF Pro", "JavaScript", "Figma"]
 coverGradient: "linear-gradient(145deg, #1a0f0f 0%, #2a1010 60%, #2e1212 100%)"
-coverImage: "/projects/fireservice.jpg"
+coverImage: "/projects/fireservice.webp"
 stats:
   - label: "Type"
     value: "Internship"
