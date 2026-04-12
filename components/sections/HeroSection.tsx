@@ -129,9 +129,12 @@ export default function HeroSection() {
 
         {/* Left — text (no parallax, stays anchored) */}
         <div>
-          <Badge variant="primary" className="mb-6 tracking-widest uppercase text-[10px]">
-            The Digital Atelier
-          </Badge>
+          <p
+            className="text-xs tracking-widest uppercase mb-5"
+            style={{ color: "var(--tertiary)" }}
+          >
+            Fullstack Developer — React, Next.js, TypeScript
+          </p>
 
           <h1
             className="text-6xl md:text-7xl 2xl:text-8xl font-semibold leading-[1.02] mb-6"
@@ -143,10 +146,10 @@ export default function HeroSection() {
           >
             <span className="text-nowrap">Clément Poudrée,</span>
             <br />
-            <span className="italic text-primary">Crafting</span>{" "}
-            Digital
+            <span className="italic text-primary">Building</span>{" "}
+            High-Performance
             <br />
-            Artifacts.
+            Web Apps.
           </h1>
 
           <p
@@ -157,8 +160,9 @@ export default function HeroSection() {
               lineHeight: 1.6,
             }}
           >
-            A fullstack developer dedicated to the intersection of poetic aesthetics and
-            technical precision. Building resilient systems with a not-human soul.
+            Fullstack developer specialized in modern React ecosystems. I design fast,
+            scalable, and SEO-driven applications with clean architecture and strong
+            type safety.
           </p>
 
           <div

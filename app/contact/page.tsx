@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { SendHorizonal, Loader2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Button from "@/components/Button";
 import Field, { useInputFocus, inputStyle } from "@/components/form/Field";
 import CustomSelect from "@/components/form/CustomSelect";
 
@@ -183,18 +183,6 @@ export default function ContactPage() {
                       .
                     </p>
                   </motion.div>
-                  <button
-                    onClick={() => {
-                      setFormState("idle");
-                      setValues({ name: "", email: "", subject: SUBJECTS[0], message: "" });
-                    }}
-                    className="text-xs tracking-widest uppercase transition-colors"
-                    style={{ color: "var(--on-surface-muted)", cursor: "pointer" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--tertiary)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--on-surface-muted)")}
-                  >
-                    Send another
-                  </button>
                 </div>
               ) : (
                 /* ── Form ── */
@@ -272,44 +260,74 @@ export default function ContactPage() {
                       are required.
                     </p>
 
-                    <Button
+                    <motion.button
                       type="submit"
-                      variant="primary"
-                      size="lg"
                       disabled={formState === "sending"}
+                      whileHover={formState !== "sending" ? { scale: 1.02 } : {}}
+                      whileTap={{ scale: 0.97 }}
+                      className="relative overflow-hidden inline-flex items-center gap-2.5 px-6 py-3 font-semibold text-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                      style={{
+                        background: "var(--primary-container)",
+                        color: "var(--on-primary)",
+                        borderRadius: "1rem",
+                        fontFamily: "var(--font-manrope)",
+                      }}
                     >
-                      {formState === "sending" ? (
-                        <>
-                          <span
-                            className="w-4 h-4 rounded-full border-2 animate-spin"
-                            style={{
-                              borderColor: "rgba(250,246,255,0.4)",
-                              borderTopColor: "transparent",
-                            }}
-                          />
-                          Sending…
-                        </>
-                      ) : (
-                        <>
-                          Send message
-                          <svg
-                            className="transition-transform duration-200 group-hover:translate-x-1"
-                            width="14"
-                            height="14"
-                            viewBox="0 0 14 14"
-                            fill="none"
+                      {/* Hover shimmer layer */}
+                      <motion.span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0"
+                        initial={{ x: "-100%", opacity: 0 }}
+                        whileHover={{ x: "100%", opacity: 1 }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        style={{
+                          background:
+                            "linear-gradient(90deg, transparent 0%, rgba(250,246,255,0.12) 50%, transparent 100%)",
+                        }}
+                      />
+
+                      {/* Label + icon — crossfade on state change */}
+                      <AnimatePresence mode="wait" initial={false}>
+                        {formState === "sending" ? (
+                          <motion.span
+                            key="sending"
+                            className="inline-flex items-center gap-2.5"
+                            initial={{ opacity: 0, y: 6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.15 }}
                           >
-                            <path
-                              d="M2 7h10M8 4l3 3-3 3"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </>
-                      )}
-                    </Button>
+                            <motion.span
+                              animate={{ rotate: 360 }}
+                              transition={{ repeat: Infinity, duration: 0.9, ease: "linear" }}
+                              className="inline-flex"
+                            >
+                              <Loader2 size={15} strokeWidth={2} />
+                            </motion.span>
+                            Sending…
+                          </motion.span>
+                        ) : (
+                          <motion.span
+                            key="idle"
+                            className="inline-flex items-center gap-2.5"
+                            initial={{ opacity: 0, y: 6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.15 }}
+                          >
+                            Send message
+                            <motion.span
+                              className="inline-flex"
+                              initial={{ x: 0 }}
+                              whileHover={{ x: 3 }}
+                              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                            >
+                              <SendHorizonal size={15} strokeWidth={2} />
+                            </motion.span>
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </motion.button>
                   </div>
                 </form>
               )}
