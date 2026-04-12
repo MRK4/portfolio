@@ -50,9 +50,17 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState("sending");
-    /* Simulated async send — replace with your actual API call */
-    await new Promise((res) => setTimeout(res, 1200));
-    setFormState("sent");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) throw new Error();
+      setFormState("sent");
+    } catch {
+      setFormState("error");
+    }
   };
 
   return (
@@ -137,7 +145,25 @@ export default function ContactPage() {
               className="p-8 md:p-10"
               style={{ background: "var(--surface-high)", borderRadius: "2rem" }}
             >
-              {formState === "sent" ? (
+              {formState === "error" ? (
+                /* ── Error state ── */
+                <div className="flex flex-col items-center justify-center text-center py-12 gap-4">
+                  <p className="text-sm" style={{ color: "var(--on-surface-variant)" }}>
+                    Something went wrong. Please try again or reach out directly at{" "}
+                    <a href="mailto:poudree.clement@gmail.com" style={{ color: "var(--primary)" }}>
+                      poudree.clement@gmail.com
+                    </a>
+                    .
+                  </p>
+                  <button
+                    onClick={() => setFormState("idle")}
+                    className="text-xs underline cursor-pointer"
+                    style={{ color: "var(--on-surface-muted)" }}
+                  >
+                    Try again
+                  </button>
+                </div>
+              ) : formState === "sent" ? (
                 /* ── Success state ── */
                 <div className="flex flex-col items-center justify-center text-center py-12 gap-6">
                   <motion.div
