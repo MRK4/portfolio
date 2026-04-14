@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 
 const socialLinks = [
-  { label: "GitHub", href: "https://github.com/MRK4" },
+  { label: "GitHub", href: "https://github.com/clementpdr" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/clementpdr/" },
 ];
 
